@@ -7,11 +7,17 @@ export default function TabLayout() {
     <SafeAreaProvider>
       <NativeTabs
         tintColor={Theme.colors.primary}
-        backgroundColor={Theme.colors.background}
+        backgroundColor={Theme.colors.surface}
         rippleColor={Theme.colors.rippleColor}
+        indicatorColor={Theme.colors.rippleColor}
+        badgeBackgroundColor={Theme.colors.primary}
         iconColor={{
           default: Theme.colors.textMuted,
           selected: Theme.colors.primary,
+        }}
+        labelStyle={{
+          default: { color: Theme.colors.textMuted },
+          selected: { color: Theme.colors.primary },
         }}
       >
         <NativeTabs.Trigger name="index">
@@ -22,7 +28,7 @@ export default function TabLayout() {
           />
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="preview">
-          <NativeTabs.Trigger.Label>Preview</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Label>Previews</NativeTabs.Trigger.Label>
           <NativeTabs.Trigger.Icon
             sf={{ default: 'magnifyingglass.circle', selected: 'magnifyingglass.circle.fill' }}
             md='search'

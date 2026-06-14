@@ -1,9 +1,5 @@
-import { Text, View } from "react-native";
+import CragListScreen from "@/src/screens/crag-list-screen";
 
-export default function CragOverview() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Hello</Text>
-    </View>
-  );
+export default function HomeTab() {
+  return <CragListScreen />
 }

@@ -16,9 +16,11 @@ export default function ({
   return (
     <View style={styles.container}>
       <View style={styles.topBarContent}>
-        {leadingIcon}
-        <Text style={styles.titleText}>{title}</Text>
-        {trailingIcon}
+        <View style={styles.iconSlot}>{leadingIcon}</View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleText}>{title}</Text>
+        </View>
+        <View style={styles.iconSlot}>{trailingIcon}</View>
       </View>
       <View style={styles.horizontalDivider} />
     </View>
@@ -33,25 +35,24 @@ const styles = StyleSheet.create({
   topBarContent: {
     flexDirection: 'row',
     paddingVertical: 16,
-        paddingHorizontal: 22,
+    paddingHorizontal: 16,
     alignItems: 'center',
-
+  },
+  iconSlot: {
+    width: 40,
+    minWidth: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleText: {
     ...Theme.typography.headingLarge,
-    alignContent: 'center',
     textAlign: 'center',
-    flexShrink: 1,
-    width: '100%',
     paddingBottom: 4,
-  },
-  leadingIcon: {
-    width: 16,
-    height: 16
-  },
-  trailingIcon: {
-    width: 16,
-    height: 16
   },
   horizontalDivider: {
     height: 1,

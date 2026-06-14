@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
     paddingTop: 3,
   },
   textInput: {
-    ...Theme.typography.body
+    ...Theme.typography.bodyMedium
   }
 })

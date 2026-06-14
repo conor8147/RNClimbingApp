@@ -15,6 +15,8 @@ export function RouteListItem({
   style,
 }: RouteListItemProps) {
   const [collapsed, setCollapsed] = useState(false)
+  const boltCount = route.boltCount ?? 0;
+
 
   const icon = collapsed ? 'chevron-right' : 'chevron-down'
 
@@ -33,7 +35,9 @@ export function RouteListItem({
             <Stars count={route.stars} />
             <Chip text={capitalize(route.type)} />
             <Chip text={route.length + 'm'} />
-            {route.boltCount && <Chip text={route.boltCount + ' bolts'} />}
+            {boltCount > 0 && (
+              <Chip text={route.boltCount + ' bolts'} />
+            )}
           </View>
           {!collapsed &&
             <Text>{route.description}</Text>
