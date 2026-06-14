@@ -1,4 +1,4 @@
-import { Theme } from "@/constants/Theme";
+import { Theme } from "@/src/theme";
 import { Stack } from "expo-router";
 
 
