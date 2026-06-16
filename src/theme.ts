@@ -27,7 +27,7 @@ export const Theme = {
       fontWeight: '500' as const,
       letterSpacing: 0.3,
   },
-    body: {
+    bodySmall: {
       fontSize: 13,
       fontWeight: '400' as const,
       lineHeight: 15,
@@ -36,6 +36,11 @@ export const Theme = {
       fontSize: 16,
       fontWeight: '400' as const,
       lineHeight: 18,
+    },
+    captionSmall: {
+      fontSize: 12,
+      fontWeight: '400' as const,
+      color: Colors.textMuted,
     },
     caption: {
       fontSize: 14,

@@ -1,3 +1,4 @@
+import ImageCard from "@/src/components/ImageCard";
 import { InfoCard } from "@/src/components/InfoCard";
 import { InfoListItem } from "@/src/components/InfoListItem";
 import { RouteListItem } from "@/src/components/RouteListItem";
@@ -5,13 +6,22 @@ import { Search } from "@/src/components/Search";
 import TopBar from "@/src/components/TopBar";
 import { Theme } from "@/src/theme";
 import { Entypo } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function Preview() {
+  const handleIconPress = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Added to favourites',
+      position: 'bottom',
+    });
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
+
         <TopBar
           leadingIcon={
             <Entypo name={'chevron-left'}
@@ -28,12 +38,58 @@ export default function Preview() {
           }
         />
 
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <ScrollView
+          style={{
+            flex: 1,
+            width: '100%',
+            flexDirection: 'column',
+            paddingHorizontal: 16,
+          }}
+          contentContainerStyle={{
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 10,
+              paddingVertical: 16
+            }}
+          >
+            <ImageCard
+              imgSrc={""}
+              title={"Shipley Upper"}
+              subtitle={"Blackheath"}
+              onPress={() => { }}
+              onIconPress={handleIconPress}
+              icon={<Entypo name={'heart'}
+                size={24}
+                color={Theme.colors.text}
+              />}
+              style={{ flex: 1 }}
+            />
+
+            <ImageCard
+              imgSrc={""}
+              title={"Shipley Upper"}
+              subtitle={"Blackheath"}
+              onPress={() => { }}
+              onIconPress={handleIconPress}
+              icon={<Entypo name={'heart'}
+                size={24}
+                color={Theme.colors.text}
+              />}
+              style={{ flex: 1 }}
+            />
+          </View>
 
           <Search
             style={styles.searchBarStyle}
             hintText={"Search for crags..."}
-            onContentChanged={() => {}}
+            onContentChanged={() => { }}
           />
 
           <InfoListItem
@@ -65,7 +121,7 @@ export default function Preview() {
             subtitle="Blackheath"
             style={styles.cardStyle}
           />
-        </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   )
@@ -74,15 +130,12 @@ export default function Preview() {
 const styles = StyleSheet.create({
   cardStyle: {
     marginTop: 12,
-    marginHorizontal: 16,
     alignSelf: 'stretch',
   },
   listItemStyle: {
-    marginHorizontal: 16,
     alignSelf: 'stretch',
   },
   searchBarStyle: {
-    marginHorizontal: 16,
     alignSelf: 'stretch',
 
   }

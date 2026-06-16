@@ -78,7 +78,7 @@ const Badge = ({
 }: { label: number }) => {
   return (
     <View style={styles.badgeContainer}>
-      <Text style={Theme.typography.body}>{label}</Text>
+      <Text style={Theme.typography.bodySmall}>{label}</Text>
     </View>
   )
 }
@@ -131,14 +131,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   descriptionText: {
-    ...Theme.typography.body,
+    ...Theme.typography.bodySmall,
   },
   title: {
     ...Theme.typography.headingMedium,
     paddingBottom: 4,
   },
   bodyText: {
-    ...Theme.typography.body
+    ...Theme.typography.bodySmall
   },
   expandIcon: {
     paddingTop: 6,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marginStart: 8,
   },
   chipContentStyle: {
-    ...Theme.typography.body,
+    ...Theme.typography.bodySmall,
   }
 })
 

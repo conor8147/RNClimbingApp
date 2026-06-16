@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
     },
     bodyText: {
-        ...Theme.typography.body
+        ...Theme.typography.bodySmall
     },
     expandIcon: {
         paddingTop: 6,

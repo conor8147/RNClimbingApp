@@ -2,12 +2,12 @@ import { Entypo } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { InfoCard } from "../components/InfoCard";
+import { InfoListItem } from "../components/InfoListItem";
 import TopBar from "../components/TopBar";
+import { testCrag } from "../data/repository/CragRepository";
 import { CragOverview } from "../entity/crag";
 import { Theme } from "../theme";
-import { InfoListItem } from "../components/InfoListItem";
-import { testCrag } from "../data/repository/CragRepository";
-import { InfoCard } from "../components/InfoCard";
 
 export function CragDetailsScreen() {
   const router = useRouter();
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   emptyState: {
-    ...Theme.typography.body,
+    ...Theme.typography.bodySmall,
     color: Theme.colors.textMuted,
   },
   areasHeaderText: {

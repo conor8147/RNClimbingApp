@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     ...Theme.typography.caption,
   },
   emptyState: {
-    ...Theme.typography.body,
+    ...Theme.typography.bodySmall,
     color: Theme.colors.textMuted,
     marginHorizontal: 16,
   },
