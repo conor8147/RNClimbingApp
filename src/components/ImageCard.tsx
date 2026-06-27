@@ -1,8 +1,8 @@
-import { StyleProp, StyleSheet, View, ViewStyle, Image, Text, Pressable } from "react-native"
+import { StyleProp, StyleSheet, View, ViewStyle, Image, Text, Pressable, ImageSourcePropType } from "react-native"
 import { Theme } from "../theme";
 
 type ImageCardProps = {
-  imgSrc: string,
+  imgSrc: ImageSourcePropType,
   title: string,
   subtitle: string,
   onPress: () => void,
@@ -21,13 +21,15 @@ export default function ImageCard({
   icon,
 }: ImageCardProps) {
   return (
-    <View style={[styles.container, style]}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.container, style]}
+    >
       <Image
         style={styles.image}
-        source={require('@/assets/images/default.jpeg')}
+        source={imgSrc}
         resizeMode="cover"
       />
-
 
       <View style={styles.bottomRow}>
         <View style={styles.textColumn}>
@@ -41,7 +43,7 @@ export default function ImageCard({
           {icon}
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   )
 
 }
@@ -51,14 +53,15 @@ const styles = StyleSheet.create({
     padding: 6,
     paddingBottom: 14,
     backgroundColor: Theme.colors.surface,
-    borderColor: Theme.colors.border,
+    borderColor: Theme.colors.borderSubtle,
+    borderWidth: 0.5,
     borderRadius: Theme.shapes.radius.medium,
     gap: 8,
   },
   image: {
-    borderRadius: Theme.shapes.radius.small,
+    borderRadius: 10,
     width: '100%',
-    height: 170,
+    height: 110,
     resizeMode: 'cover',
   },
   bottomRow: {

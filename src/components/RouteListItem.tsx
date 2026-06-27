@@ -14,9 +14,8 @@ export function RouteListItem({
   route,
   style,
 }: RouteListItemProps) {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
   const boltCount = route.boltCount ?? 0;
-
 
   const icon = collapsed ? 'chevron-right' : 'chevron-down'
 
@@ -40,7 +39,7 @@ export function RouteListItem({
             )}
           </View>
           {!collapsed &&
-            <Text>{route.description}</Text>
+            <Text style={styles.bodyText}>{route.description}</Text>
           }
         </View>
 
@@ -122,23 +121,20 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   headerText: {
-    ...Theme.typography.headingMedium,
-    paddingStart: 6
+    ...Theme.typography.headingSmall,
+    paddingStart: 12
   },
   tagsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 10,
-  },
-  descriptionText: {
-    ...Theme.typography.bodySmall,
   },
   title: {
     ...Theme.typography.headingMedium,
     paddingBottom: 4,
   },
   bodyText: {
-    ...Theme.typography.bodySmall
+    ...Theme.typography.bodySmall,
+    paddingTop: 10
   },
   expandIcon: {
     paddingTop: 6,
@@ -153,6 +149,7 @@ const styles = StyleSheet.create({
     width: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: -1,
     borderRadius: Theme.shapes.radius.xSmall,
     borderColor: Theme.colors.border,
     borderWidth: 1,

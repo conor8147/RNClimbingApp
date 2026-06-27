@@ -1,7 +1,7 @@
 import { InfoCard } from "@/src/components/InfoCard";
 import { Search } from "@/src/components/Search";
 import TopBar from "@/src/components/TopBar";
-import { useFavouriteCrags } from "@/src/hooks/useFavouriteCrags";
+import { useFavouriteCrags } from "@/src/hooks/FavouriteCragsProvider";
 import { Theme } from "@/src/theme";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -16,18 +16,7 @@ export default function CragListScreen() {
   const state = useCragList();
 
   const crags = state.status === "content" ? state.content : [];
-
-  const initialFavourites = useMemo(
-    () =>
-      Object.fromEntries(
-        crags
-          .filter((crag) => crag.isFavourite)
-          .map((crag) => [crag.id, true]),
-      ),
-    [crags],
-  );
-
-  const { isFavourite, toggleFavourite } = useFavouriteCrags(initialFavourites);
+  const { favourites, toggleFavourite } = useFavouriteCrags();
 
   const filteredCrags = useMemo(() => {
     const searchTerm = query.trim().toLowerCase();
@@ -42,7 +31,10 @@ export default function CragListScreen() {
   }, [crags, query]);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.safeArea}
+    >
       <TopBar
         title="Home"
       />
@@ -69,7 +61,7 @@ export default function CragListScreen() {
         )}
 
         {filteredCrags.map((crag) => {
-          const favourite = isFavourite(crag.id);
+          const favourite = favourites.includes(crag);
 
           return (
             <InfoCard
@@ -88,7 +80,7 @@ export default function CragListScreen() {
                   style={styles.favouritePressable}
                   onPress={(event) => {
                     event.stopPropagation();
-                    toggleFavourite(crag.id);
+                    toggleFavourite(crag);
                   }}
                   accessibilityRole="button"
                 >

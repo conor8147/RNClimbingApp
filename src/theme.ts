@@ -7,7 +7,7 @@ export const Colors = {
   text: '#000000',
   textMuted: '#656161',
   rippleColor: "#007AFF22",
-  borderSubtle: '#C3C3C3',
+  borderSubtle: '#B7B7B7',
   border: '#8C8C8C',
   greyContainer: '#CBCBCB',
 }
@@ -25,6 +25,11 @@ export const Theme = {
     headingMedium: {
       fontSize: 18,
       fontWeight: '500' as const,
+      letterSpacing: 0.3,
+  },
+  headingSmall: {
+      fontSize: 16,
+      fontWeight: '400' as const,
       letterSpacing: 0.3,
   },
     bodySmall: {

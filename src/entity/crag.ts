@@ -1,3 +1,5 @@
+import { AreaOverview } from "./area"
+
 export type CragOverview = {
   id: number,
   name: string,
@@ -12,8 +14,3 @@ export type Crag = CragOverview & {
   areas: AreaOverview[]
 }
 
-export type AreaOverview = {
-  id: number,
-  name: string,
-  routeCount: string,
-}

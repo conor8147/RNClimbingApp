@@ -1,7 +1,7 @@
 import { Theme } from "@/src/theme";
 import { Entypo } from '@expo/vector-icons';
-import { useState } from "react";
-import { Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { useCallback, useState } from "react";
+import { NativeSyntheticEvent, Pressable, StyleProp, StyleSheet, Text, TextLayoutEvent, TextLayoutEventData, View, ViewStyle } from "react-native";
 
 export type InfoListItemProps = {
     title: string,
@@ -14,31 +14,43 @@ export function InfoListItem({
     content,
     style,
 }: InfoListItemProps) {
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(false);
+    const [isCollapsible, setIsCollapsible] = useState(false);
+    const maxLines = 4;
 
-    const icon = collapsed ? 'chevron-right' : 'chevron-down'
+    const icon = collapsed ? 'chevron-right' : 'chevron-down';
+
+    const handleTextLayout = useCallback((e: TextLayoutEvent) => {
+        const totalLines = e.nativeEvent.lines.length;
+        if (!isCollapsible && totalLines > maxLines) {
+            setIsCollapsible(true);
+        }
+    }, [maxLines]);
 
     return (
         <Pressable
             style={[styles.container, style]}
-            onPress={() => setCollapsed(!collapsed)}
+            onPress={() => { if (isCollapsible) { setCollapsed(!collapsed) } }}
         >
             <View style={styles.contentContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{title}</Text>
                     <Text
                         style={styles.bodyText}
-                        numberOfLines={collapsed ? 2 : undefined}
+                        numberOfLines={collapsed ? maxLines : undefined}
                         ellipsizeMode="tail"
+                        onTextLayout={handleTextLayout}
                     >{content}</Text>
                 </View>
-                <Entypo name={icon}
-                    size={16}
-                    color={Theme.colors.text}
-                    style={styles.expandIcon}
-                />
+                { isCollapsible &&
+                    <Entypo name={icon}
+                        size={16}
+                        color={Theme.colors.text}
+                        style={styles.expandIcon}
+                    />
+                }
             </View>
-            <View style={styles.horizontalDivider}/>
+            <View style={styles.horizontalDivider} />
         </Pressable>
     );
 }

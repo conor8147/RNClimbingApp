@@ -8,16 +8,8 @@ import { Theme } from "@/src/theme";
 import { Entypo } from "@expo/vector-icons";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 
 export default function Preview() {
-  const handleIconPress = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Added to favourites',
-      position: 'bottom',
-    });
-  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'column' }}>
@@ -60,11 +52,11 @@ export default function Preview() {
             }}
           >
             <ImageCard
-              imgSrc={""}
+              imgSrc={require('@/assets/images/default.jpeg')}
               title={"Shipley Upper"}
               subtitle={"Blackheath"}
               onPress={() => { }}
-              onIconPress={handleIconPress}
+              onIconPress={() => {}}
               icon={<Entypo name={'heart'}
                 size={24}
                 color={Theme.colors.text}
@@ -73,11 +65,11 @@ export default function Preview() {
             />
 
             <ImageCard
-              imgSrc={""}
+              imgSrc={require('@/assets/images/default.jpeg')}
               title={"Shipley Upper"}
               subtitle={"Blackheath"}
               onPress={() => { }}
-              onIconPress={handleIconPress}
+              onIconPress={() => {}}
               icon={<Entypo name={'heart'}
                 size={24}
                 color={Theme.colors.text}

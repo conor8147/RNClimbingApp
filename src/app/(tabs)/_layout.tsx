@@ -27,6 +27,13 @@ export default function TabLayout() {
             md='home'
           />
         </NativeTabs.Trigger>
+        <NativeTabs.Trigger name="favourites">
+          <NativeTabs.Trigger.Label>Liked</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon
+          sf={{default: 'heart', selected: 'heart.fill' }}
+          md='favorite'
+          />
+        </NativeTabs.Trigger>
         <NativeTabs.Trigger name="preview">
           <NativeTabs.Trigger.Label>Previews</NativeTabs.Trigger.Label>
           <NativeTabs.Trigger.Icon
