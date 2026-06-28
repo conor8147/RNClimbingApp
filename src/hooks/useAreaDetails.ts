@@ -9,8 +9,6 @@ export default function useAreaDetails(
   return useQuery({
     queryKey: ['area', areaId],
     queryFn: () => remoteDataSource.getAreaDetails(areaId),
-    staleTime: staleTime,
+    meta: { persist: false },
   })
 }
-
-const staleTime = 1000 * 60 * 10

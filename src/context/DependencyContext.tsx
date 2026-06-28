@@ -6,6 +6,7 @@ import { createMMKV, MMKV } from 'react-native-mmkv'
 import { createAreaLocalDataSource } from "../data/local/AreaLocalDataSource";
 import { AreaRemoteDataSource } from "../data/remote/AreaRemoteDataSource";
 import { CragRemoteDataSource } from "../data/remote/CragRemoteDataSource";
+import { createCragLocalDataSource } from "../data/local/CragLocalDataSource";
 
 type AppDependencies = {
   areaRemoteDataSource: AreaRemoteDataSource;
@@ -14,15 +15,16 @@ type AppDependencies = {
   areaRepository: AreaRepository;
 }
 
-const storage: MMKV = createMMKV()
+const storage: MMKV = createMMKV();
 
-const areaLocalDataSource = createAreaLocalDataSource(storage)
+const areaLocalDataSource = createAreaLocalDataSource(storage);
+const cragLocalDataSource = createCragLocalDataSource(storage);
 
-const areaRemoteDataSource = createDummyAreaRemoteDataSource()
-const cragRemoteDataSource = createDummyCragRemoteDataSource()
+const areaRemoteDataSource = createDummyAreaRemoteDataSource();
+const cragRemoteDataSource = createDummyCragRemoteDataSource();
 
 const areaRepository = createAreaRepository(areaRemoteDataSource, areaLocalDataSource)
-const cragRepository = createCragRepository(cragRemoteDataSource)
+const cragRepository = createCragRepository(cragRemoteDataSource, cragLocalDataSource)
 
 const dependencies: AppDependencies = {
   areaRemoteDataSource,

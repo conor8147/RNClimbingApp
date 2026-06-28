@@ -7,8 +7,6 @@ export function useCragList() {
   return useQuery({
     queryKey: ['cragList'],
     queryFn: () => remoteDataSource.getCrags(),
-    staleTime: staleTime,
+    meta: { persist: true }
   })
 }
-
-const staleTime = 1000 * 60 * 10

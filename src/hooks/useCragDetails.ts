@@ -9,8 +9,6 @@ export default function useCragDetails(
   return useQuery({
     queryKey: ['crag', cragId],
     queryFn: () => repository.getCragDetails(cragId),
-    staleTime: staleTime,
+    meta: { persist: false }
   })
 }
-
-const staleTime = 1000 * 60 * 10
