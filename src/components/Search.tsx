@@ -13,7 +13,6 @@ export function Search({
   onContentChanged,
   style,
 }: SearchProps) {
-  const [isEditing, setEditing] = useState(false)
   return (
     <View style={[styles.container, style]}>
       <TextInput
@@ -33,8 +32,8 @@ const styles = StyleSheet.create({
     borderRadius: Theme.shapes.radius.full,
     borderWidth: Theme.shapes.borderWidth,
     borderColor: Theme.colors.borderSubtle,
-    paddingStart: 10,
-    paddingTop: 3,
+    paddingStart: 12,
+    paddingVertical: 10,
   },
   textInput: {
     ...Theme.typography.bodyMedium

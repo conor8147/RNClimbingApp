@@ -8,9 +8,11 @@
     "scheme": "climbingapp",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.coneill.climbingapp",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.coneill.climbingapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

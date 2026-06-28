@@ -1,30 +1,10 @@
-import { CragOverview } from "@/src/entity/crag";
+import { Crag, CragOverview } from "@/src/entity/crag";
 import { buildApiUrl } from "./api";
+import { AreaResponse } from "./entity/AreaResponse";
 
 export type CragRemoteDataSource = {
   getCrags(): Promise<CragOverview[] | null>;
-};
-
-type ClimbResponse = {
-  id: number;
-  name: string;
-  rating: number;
-  difficulty: number;
-  length: number;
-  draws: number;
-  style: string;
-  areaId: number;
-  description: string;
-};
-
-type AreaResponse = {
-  id: number;
-  name: string;
-  location: string;
-  approach?: string;
-  parentAreaId?: string | null;
-  childAreas?: AreaResponse[];
-  climbs?: ClimbResponse[];
+  getCragDetails(cragId: number): Promise<Crag | null>
 };
 
 function toCragOverview(area: AreaResponse): CragOverview {
@@ -49,7 +29,7 @@ export const cragRemoteDataSource: CragRemoteDataSource = {
 
     const areaList = Array.isArray(data)
       ? data
-      : (data as { areas?: unknown[] } | null)?.areas;
+      : (data as { areas?: unknown[]; } | null)?.areas;
 
     if (!Array.isArray(areaList)) {
       return null;
@@ -57,4 +37,8 @@ export const cragRemoteDataSource: CragRemoteDataSource = {
 
     return areaList.map((item) => toCragOverview(item as AreaResponse));
   },
+
+  async getCragDetails(cragId: number) {
+    throw new Error("Function not implemented.");
+  }
 };

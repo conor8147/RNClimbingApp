@@ -1,11 +1,11 @@
 import { Entypo } from "@expo/vector-icons";
-import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { useRouter } from "expo-router";
+import { FlatList, StyleProp, StyleSheet, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ImageCard from "../components/ImageCard";
 import TopBar from "../components/TopBar";
-import { useFavouriteCrags } from "../hooks/FavouriteCragsProvider";
+import { useFavouriteCrags } from "../context/FavouriteCragsProvider";
 import { Theme } from "../theme";
-import { useRouter } from "expo-router";
 
 export default function FavouritesScreen() {
   const { favourites, toggleFavourite } = useFavouriteCrags();

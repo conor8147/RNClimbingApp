@@ -7,7 +7,7 @@ import { Entypo } from "@expo/vector-icons";
 import { InfoListItem } from "../components/InfoListItem";
 import { RouteListItem } from "../components/RouteListItem";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import useAreaDetails, { AreaDetailsUIState } from "../hooks/useAreaDetails";
+import useAreaDetails from "../hooks/useAreaDetails";
 
 
 export function AreaDetailsScreen() {
@@ -17,7 +17,7 @@ export function AreaDetailsScreen() {
   const areaOverview = (JSON.parse(areaJson!) as AreaOverview);
 
   console.log(areaOverview.id)
-  const state = useAreaDetails(areaOverview.id)
+  const { data, isLoading, error } = useAreaDetails(areaOverview.id)
 
   return (
     <SafeAreaView
@@ -29,17 +29,23 @@ export function AreaDetailsScreen() {
         onLeadingPress={() => router.back()}
         title={areaOverview.name}
       />
-      <AreaScreenContent state={state} />
+      <AreaScreenContent data={data} isLoading={isLoading} error={error} />
     </SafeAreaView>
   )
 }
 
-function AreaScreenContent({ state }: { state: AreaDetailsUIState }) {
-  switch (state.status) {
-    case 'loading': return <LoadingContent />
-    case 'error': return <ErrorContent />
-    case 'content': return <AreaView area={state.content} />
-  }
+function AreaScreenContent({
+  data,
+  isLoading,
+  error
+}: {
+  data: Area | null | undefined,
+  isLoading: boolean,
+  error: Error | null,
+}) {
+  if (isLoading) return <LoadingContent />
+  if (error || !data) return <ErrorContent />
+  return <AreaView area={data} />
 }
 
 function AreaView({ area }: { area: Area }) {

@@ -1,47 +1,34 @@
 import { Area, AreaOverview } from "@/src/entity/area";
-import { testAreas } from "./testAreas";
+import { AreaRemoteDataSource } from "../remote/AreaRemoteDataSource";
+import { AreaLocalDataSource } from "../local/AreaLocalDataSource";
 
 export type AreaRepository = {
-  getAreaOverviews(): Promise<AreaOverview[]>
+  getCachedAreaDetails(areaId: number): Area | null
   getAreaDetails(areaId: number): Promise<Area | null>
 }
 
-export const dummyAreaRepository: AreaRepository = {
-  async getAreaOverviews() {
-    await new Promise((res) => setTimeout(res, 500));
-    return testAreaOverviews;
-  },
+export const createAreaRepository = (
+  remoteDataSource: AreaRemoteDataSource,
+  localDataSource: AreaLocalDataSource,
+): AreaRepository => {
+  return {
+    getCachedAreaDetails(areaId: number): Area | null {
+      return localDataSource.getArea(areaId)
+    },
 
-  async getAreaDetails(areaId: number) {
-    await new Promise((res) => setTimeout(res, 500));
-    return testAreas.find((item) => item.id == areaId) ?? null;
+    async getAreaDetails(areaId: number) {
+      const localResult = localDataSource.getArea(areaId);
+
+      if (localResult) return localResult
+
+      const remoteResult = await remoteDataSource.getAreaDetails(areaId);
+      if (remoteResult == null) {
+        return null
+      } else {
+        localDataSource.saveArea(remoteResult)
+      }
+
+      return remoteResult
+    }
   }
-};
-
-export const testAreaOverviews: AreaOverview[] = [
-  {
-    id: 1,
-    name: "Wave Wall",
-    routeCount: "32 routes",
-  },
-  {
-    id: 2,
-    name: "Junket Pumper Wall",
-    routeCount: "12 routes",
-  },
-  {
-    id: 3,
-    name: "Main Wall",
-    routeCount: "16 routes",
-  },
-  {
-    id: 4,
-    name: "Hip Shake Jerk Wall",
-    routeCount: "19 routes",
-  },
-  {
-    id: 5,
-    name: "Levitation Wall",
-    routeCount: "25 routes",
-  },
-];
+}

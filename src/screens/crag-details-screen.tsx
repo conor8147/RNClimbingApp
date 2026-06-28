@@ -5,10 +5,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { InfoCard } from "../components/InfoCard";
 import { InfoListItem } from "../components/InfoListItem";
 import TopBar from "../components/TopBar";
+import { useFavouriteCrags } from "../context/FavouriteCragsProvider";
 import { Crag, CragOverview } from "../entity/crag";
 import { Theme } from "../theme";
-import { useFavouriteCrags } from "../hooks/FavouriteCragsProvider";
-import useCragDetails, { CragDetailsUIState } from "../hooks/useCragDetails";
+import useCragDetails from "../hooks/useCragDetails";
+import { createDummyCragRemoteDataSource } from "../data/remote/fakes/fakeDataSourceFactories";
+import { useQuery } from "@tanstack/react-query";
+
+type CragDetailsUIState = {
+  data: Crag,
+  isLoading: boolean,
+  isError: boolean,
+  error: Error,
+}
 
 export function CragDetailsScreen() {
   const router = useRouter();
@@ -17,25 +26,26 @@ export function CragDetailsScreen() {
   const { favourites, toggleFavourite } = useFavouriteCrags();
   const isFavourite = favourites.some(fav => fav.id === cragOverview.id);
 
-  const state = useCragDetails(cragOverview.id);
+  const { data, isLoading, error } = useCragDetails(cragOverview.id);
 
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}
       style={styles.container}>
       <ScreenTopBar cragOverview={cragOverview} router={router} isFavourite={isFavourite} toggleFavourite={toggleFavourite} />
-      <CragView state={state} />
+      <CragView crag={data} isLoading={isLoading} error={error}/>
 
     </SafeAreaView>
   );
 }
 
-function CragView({ state }: { state: CragDetailsUIState }) {
-  switch (state.status) {
-    case 'loading': return <LoadingContent />
-    case 'error': return <ErrorContent />
-    case 'content': return <CragContent cragDetails={state.content} />
-  }
+function CragView({
+  crag, isLoading, error
+}: { crag: Crag | null | undefined, isLoading: boolean, error: Error | null }) {
+  if (isLoading) return <LoadingContent />
+  if (error || !crag) return <ErrorContent />
+
+  return <CragContent cragDetails={crag} />
 }
 
 function ScreenTopBar({ cragOverview, router, isFavourite, toggleFavourite }:

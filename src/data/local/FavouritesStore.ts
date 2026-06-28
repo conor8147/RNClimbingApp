@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CragOverview } from "../entity/crag";
+import { CragOverview } from "../../entity/crag";
 
 export const FavouritesStore = {
   async getFavouriteCrags(): Promise<number[]> {
@@ -7,7 +7,6 @@ export const FavouritesStore = {
   },
 
   async saveFavouriteCrags(crags: CragOverview[]) {
-    console.log(crags)
     return storeData(crags.map((item) => item.id));
   }
 }

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { FavouritesStore } from "./FavouritesStore";
+import { FavouritesStore } from "../data/local/FavouritesStore";
 import { CragOverview } from "../entity/crag";
-import { dummyCragRepository } from "../data/repository/CragRepository";
+import { useDeps } from "./DependencyContext";
 
 export type FavouritesType = {
   favourites: CragOverview[];
@@ -17,7 +17,7 @@ export function FavouritesProvider(
   { children }: { children: ReactNode }
 ) {
   const store = FavouritesStore
-  const cragRepo = dummyCragRepository
+  const cragRepo = useDeps().cragRepository
 
   const [favourites, setFavourites] = useState<CragOverview[]>([]);
 
@@ -27,7 +27,7 @@ export function FavouritesProvider(
       const allCrags = await cragRepo.getCrags();
 
       const savedCrags: CragOverview[] = allCrags?.filter((crag) => {
-        return favourites.some(fav => fav.id === crag.id);
+        return savedCragIds.some(fav => fav === crag.id);
       }) ?? [];
       setFavourites(savedCrags);
     }
@@ -38,8 +38,9 @@ export function FavouritesProvider(
 
   const toggleFavourite = (crag: CragOverview) => {
     let newState = favourites
+    console.log("existing: " + favourites.map ((fav) => fav.name))
     try {
-      if (favourites.includes(crag)) {
+      if (favourites.find((it) => it.id == crag.id)) {
         newState = favourites.filter(x => x.id != crag.id)
       } else {
         newState = [...favourites, crag]

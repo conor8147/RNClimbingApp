@@ -1,6 +1,33 @@
-import { Area } from "@/src/entity/area";
+import { Area, AreaOverview } from "@/src/entity/area";
 import { Route } from "@/src/entity/route";
 
+export const testAreaOverviews: AreaOverview[] = [
+  {
+    id: 1,
+    name: "Wave Wall",
+    routeCount: "32 routes",
+  },
+  {
+    id: 2,
+    name: "Junket Pumper Wall",
+    routeCount: "12 routes",
+  },
+  {
+    id: 3,
+    name: "Main Wall",
+    routeCount: "16 routes",
+  },
+  {
+    id: 4,
+    name: "Hip Shake Jerk Wall",
+    routeCount: "19 routes",
+  },
+  {
+    id: 5,
+    name: "Levitation Wall",
+    routeCount: "25 routes",
+  },
+];
 
 export const testAreas: Area[] = [
   {

@@ -1,7 +1,7 @@
 import { InfoCard } from "@/src/components/InfoCard";
 import { Search } from "@/src/components/Search";
 import TopBar from "@/src/components/TopBar";
-import { useFavouriteCrags } from "@/src/hooks/FavouriteCragsProvider";
+import { useFavouriteCrags } from "@/src/context/FavouriteCragsProvider";
 import { Theme } from "@/src/theme";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -13,9 +13,9 @@ import { useCragList } from "../hooks/useCragListScreen";
 export default function CragListScreen() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const state = useCragList();
+  const { data, isLoading, error } = useCragList();
 
-  const crags = state.status === "content" ? state.content : [];
+  const crags = data ? data : [];
   const { favourites, toggleFavourite } = useFavouriteCrags();
 
   const filteredCrags = useMemo(() => {
@@ -42,16 +42,16 @@ export default function CragListScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <Search
           style={styles.searchBar}
-          hintText="Search crags or routes"
+          hintText="Search crags"
           onContentChanged={setQuery}
         />
 
-        {state.status === "loading" && (
+        {isLoading && (
           <Text style={styles.emptyState}>Loading crags...</Text>
         )}
 
-        {state.status === "error" && (
-          <Text style={styles.emptyState}>{state.error.message}</Text>
+        {error && (
+          <Text style={styles.emptyState}>{error.message}</Text>
         )}
 
         {query !== "" && (
@@ -95,7 +95,7 @@ export default function CragListScreen() {
           );
         })}
 
-        {state.status === 'content' && filteredCrags.length === 0 && (
+        {crags && filteredCrags.length === 0 && (
           <Text style={styles.emptyState}>No crags match your search.</Text>
         )}
       </ScrollView>
